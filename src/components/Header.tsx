@@ -67,8 +67,8 @@ const Header = () => {
         .eq('user_id', userId)
         .single();
       
-      if (data?.products) {
-        const products = Array.isArray(data.products) ? data.products : [];
+      if (data?.products && Array.isArray(data.products)) {
+        const products = data.products as any[];
         const totalItems = products.reduce((sum, item) => sum + (item.quantity || 0), 0);
         setCartCount(totalItems);
       }

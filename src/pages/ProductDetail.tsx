@@ -142,9 +142,9 @@ const ProductDetail = () => {
       }
 
       // Add product to cart
-      const existingProducts = Array.isArray(cart.products) ? cart.products : [];
+      const existingProducts = Array.isArray(cart.products) ? cart.products as any[] : [];
       const existingProductIndex = existingProducts.findIndex(
-        (item) => item.id === product.id
+        (item: any) => item.id === product.id
       );
 
       let updatedProducts;
