@@ -15,6 +15,7 @@ interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  [key: string]: any; // Index signature for Json compatibility
 }
 
 const Checkout = () => {
@@ -93,7 +94,7 @@ const Checkout = () => {
         .from('orders')
         .insert({
           user_id: user.id,
-          products: cartItems,
+          products: cartItems as any, // Cast to any for Json compatibility
           total,
           status: 'pending'
         });
@@ -147,7 +148,7 @@ const Checkout = () => {
       // Clear cart
       await supabase
         .from('carts')
-        .update({ products: [] })
+        .update({ products: [] as any })
         .eq('user_id', user.id);
 
       toast({

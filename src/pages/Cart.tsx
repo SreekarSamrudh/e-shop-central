@@ -14,6 +14,7 @@ interface CartItem {
   price: number;
   image?: string;
   quantity: number;
+  [key: string]: any; // Index signature for Json compatibility
 }
 
 const Cart = () => {
@@ -62,7 +63,7 @@ const Cart = () => {
         .from('carts')
         .upsert({
           user_id: user.id,
-          products: items
+          products: items as any // Cast to any for Json compatibility
         });
 
       if (error) throw error;

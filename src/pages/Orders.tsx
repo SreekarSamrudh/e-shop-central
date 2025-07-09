@@ -40,7 +40,14 @@ const Orders = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setOrders(data || []);
+      
+      // Convert Json products to proper array
+      const ordersWithProducts = (data || []).map(order => ({
+        ...order,
+        products: Array.isArray(order.products) ? order.products : []
+      }));
+      
+      setOrders(ordersWithProducts);
     } catch (error) {
       console.error('Error fetching orders:', error);
     } finally {
